@@ -9,22 +9,21 @@ var Bone = Bone || {};
 
 	Bone.itemView = Backbone.Marionette.ItemView.extend({
 
-		tagName: 'li',
+		tagName: 'div',
 
 		template: '#template-itemItemView',
 
 		ui: {
-			edit: '.edit',
 			destroy: '.destroy',
-			label: 'label',
+			item: '.e-text',
 			toggle: '.toggle'
 		},
 
 		events: {
 			'click @ui.destroy': 'deleteModel',
-			'dblclick @ui.label': 'onEditClick',
-			'keydown @ui.edit': 'onEditKeypress',
-			'focusout @ui.edit': 'onEditFocusout',
+			'dblclick @ui.item': 'onEditClick',
+			'keydown @ui.item': 'onEditKeypress',
+			'focusout @ui.item': 'onEditFocusout',
 			// 'click @ui.toggle': 'toggle'
 		},
 
@@ -40,32 +39,45 @@ var Bone = Bone || {};
 		// 	this.model.toggle().save();
 		// },
 
-		onEditClick: function () {
+		toggleContentEditable: function (state) {
+			if (state !== true && state !== false ) {
+				state = false;
+			}
+
+			this.ui.item.attr('contenteditable', state);
+		},
+
+		onEditClick: function (e) {
+			e.preventDefault();
+
 			this.$el.addClass('editing');
-			this.ui.edit.focus();
-			this.ui.edit.val(this.ui.edit.val());
+			this.toggleContentEditable(true);
+			this.ui.item.focus();
+			// this.ui.item.val(this.ui.item.val());
 		},
 
 		onEditFocusout: function () {
-			var itemText = this.ui.edit.val().trim();
+			var itemText = this.ui.item.text();
 			if (itemText) {
-				this.model.set('title', itemText).save();
+				this.model.set('text', itemText).save();
 				this.$el.removeClass('editing');
+				this.toggleContentEditable(false);
 			}
 		},
 
 		onEditKeypress: function (e) {
-			var ENTER_KEY = 13;
+			// var ENTER_KEY = 13;
 			var ESC_KEY = 27;
 
-			if (e.which === ENTER_KEY) {
-				this.onEditFocusout();
-				return;
-			}
+			// if (e.which === ENTER_KEY) {
+			// 	this.onEditFocusout();
+			// 	return;
+			// }
 
 			if (e.which === ESC_KEY) {
-				this.ui.edit.val(this.model.get('text'));
+				// this.ui.item.text(this.model.get('text'));
 				this.$el.removeClass('editing');
+					this.onEditFocusout();
 			}
 		}
 	});
