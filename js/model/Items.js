@@ -5,12 +5,11 @@ var Bone = Bone || {};
 (function () {
 	'use strict';
 
-	// Todo Model
-	// ----------
-	Bone.Todo = Backbone.Model.extend({
+	Bone.item = Backbone.Model.extend({
 		defaults: {
-			title: '',
-			completed: false,
+			text: 'default text',
+			x: 0,
+			y: 0,
 			created: 0
 		},
 
@@ -20,46 +19,44 @@ var Bone = Bone || {};
 			}
 		},
 
-		toggle: function () {
-			return this.set('completed', !this.isCompleted());
-		},
+		// toggle: function () {
+		// 	return this.set('completed', !this.isCompleted());
+		// },
+		//
+		// isCompleted: function () {
+		// 	return this.get('completed');
+		// },
 
-		isCompleted: function () {
-			return this.get('completed');
-		},
-
-		matchesFilter: function (filter) {
-			if (filter === 'all') {
-				return true;
-			}
-
-			if (filter === 'active') {
-				return !this.isCompleted();
-			}
-
-			return this.isCompleted();
-		}
+		// matchesFilter: function (filter) {
+		// 	if (filter === 'all') {
+		// 		return true;
+		// 	}
+		//
+		// 	if (filter === 'active') {
+		// 		return !this.isCompleted();
+		// 	}
+		//
+		// 	return this.isCompleted();
+		// }
 	});
 
-	// Todo Collection
-	// ---------------
-	Bone.TodoList = Backbone.Collection.extend({
-		model: Bone.Todo,
+	Bone.itemList = Backbone.Collection.extend({
+		model: Bone.item,
 
-		localStorage: new Backbone.LocalStorage('todos-backbone-marionette'),
+		localStorage: new Backbone.LocalStorage('items-backbone-marionette'),
 
 		comparator: 'created',
 
-		getCompleted: function () {
-			return this.filter(this._isCompleted);
-		},
-
-		getActive: function () {
-			return this.reject(this._isCompleted);
-		},
-
-		_isCompleted: function (todo) {
-			return todo.isCompleted();
-		}
+		// getCompleted: function () {
+		// 	return this.filter(this._isCompleted);
+		// },
+		//
+		// getActive: function () {
+		// 	return this.reject(this._isCompleted);
+		// },
+		//
+		// _isCompleted: function (item) {
+		// 	return item.isCompleted();
+		// }
 	});
 })();

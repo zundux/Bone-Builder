@@ -2,62 +2,47 @@
 <html lang="en" data-framework="marionettejs">
 	<head>
 		<meta charset="utf-8">
-		<title>Bone Builder</title>
-		<!-- <link rel="stylesheet" href="node_modules/Bone-app-css/index.css"> -->
-		<!-- <link rel="stylesheet" href="node_modules/Bone-common/base.css"> -->
+		<title>Page Builder</title>
 		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
-		<section id="todoapp">
+
+		<section id="itemapp">
 			<header id="header"></header>
 			<section id="main"></section>
 			<footer id="footer"></footer>
 		</section>
+
 		<footer id="info">
-			<p>Double-click to edit a todo</p>
-			<p>
-				Created by <a href="http://github.com/jsoverson">Jarrod Overson</a>
-				and <a href="http://github.com/derickbailey">Derick Bailey</a>
+			<!-- <p>
+				Created by <a href="http://github.com/zundux">Dmitry Selifanov</a>
 				using <a href="http://marionettejs.com">Backbone.Marionette</a>
 			</p>
-			<p>See who else is using marionette at <a href="http://marionettejs.com/">marionettejs.com</a>.</p>
+			<p>See who else is using marionette at <a href="http://marionettejs.com/">marionettejs.com</a>.</p> -->
 		</footer>
+
 		<script type="text/html" id="template-footer">
-			<span id="todo-count">
-				<strong><%= activeCount %></strong> <%= activeCountLabel() %>
-			</span>
-			<ul id="filters">
-				<li class="all">
-					<a href="#/">All</a>
-				</li>
-				<li class="active">
-					<a href="#/active">Active</a>
-				</li>
-				<li class="completed">
-					<a href="#/completed">Completed</a>
-				</li>
-			</ul>
-			<button id="clear-completed" <% if (!completedCount) { %>class="hidden"<% } %>>Clear completed</button>
+			<!-- footer -->
 		</script>
+
 		<script type="text/html" id="template-header">
-			<h1>todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			<button id="new-text">Add Text</button>
 		</script>
-		<script type="text/html" id="template-todoItemView">
+
+		<script type="text/html" id="template-itemItemView">
 			<div class="view">
-				<input class="toggle" type="checkbox" <% if (completed) { %>checked<% } %>>
-				<label><%- title %></label>
-				<button class="destroy"></button>
+				<label><%- text %></label>
+				<button class="destroy">x</button>
 			</div>
-			<input class="edit" value="<%- title %>">
+			<input class="edit" value="<%- text %>">
 		</script>
-		<script type="text/html" id="template-todoListCompositeView">
-			<input id="toggle-all" type="checkbox">
-			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list"></ul>
+
+		<script type="text/html" id="template-itemListCompositeView">
+			<div id="item-list"></div>
 		</script>
+
+
 		<!-- vendor libraries -->
-		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="node_modules/jquery/dist/jquery.js"></script>
 		<script src="node_modules/underscore/underscore.js"></script>
 		<script src="node_modules/backbone/backbone.js"></script>
@@ -65,12 +50,12 @@
 		<script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
 		<script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
 		<!-- application -->
-		<script src="js/Bone.Application.js"></script>
-		<script src="js/Bone.Todos.js"></script>
-		<script src="js/Bone.Layout.js"></script>
-		<script src="js/Bone.TodoList.Views.js"></script>
-		<script src="js/Bone.Router.js"></script>
-		<script src="js/Bone.FilterState.js"></script>
-		<script src="js/Bone.js"></script>
+		<script src="js/application.js"></script>
+		<script src="js/model/items.js"></script>
+		<script src="js/view/layout.js"></script>
+		<script src="js/view/itemList.js"></script>
+		<script src="js/router.js"></script>
+		<script src="js/filterState.js"></script>
+		<script src="js/index.js"></script>
 	</body>
 </html>

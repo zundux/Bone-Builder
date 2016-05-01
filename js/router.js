@@ -7,18 +7,18 @@ var Bone = Bone || {};
 
 	var filterChannel = Backbone.Radio.channel('filter');
 
-	// TodoList Router
+	// itemList Router
 	// ---------------
 	//
 	// Handles a single dynamic route to show
-	// the active vs complete todo items
+	// the active vs complete item items
 	Bone.Router = Backbone.Marionette.AppRouter.extend({
 		appRoutes: {
 			'*filter': 'filterItems'
 		}
 	});
 
-	// TodoList Controller (Mediator)
+	// itemList Controller (Mediator)
 	// ------------------------------
 	//
 	// Control the workflow and logic that exists at the application
@@ -26,40 +26,40 @@ var Bone = Bone || {};
 	Bone.Controller = Backbone.Marionette.Object.extend({
 
 		initialize: function () {
-			this.todoList = new Bone.TodoList();
+			this.itemList = new Bone.itemList();
 		},
 
 		// Start the app by showing the appropriate views
-		// and fetching the list of todo items, if there are any
+		// and fetching the list of item items, if there are any
 		start: function () {
-			this.showHeader(this.todoList);
-			this.showFooter(this.todoList);
-			this.showTodoList(this.todoList);
-			this.todoList.on('all', this.updateHiddenElements, this);
-			this.todoList.fetch();
+			this.showHeader(this.itemList);
+			this.showFooter(this.itemList);
+			this.showitemList(this.itemList);
+			this.itemList.on('all', this.updateHiddenElements, this);
+			this.itemList.fetch();
 		},
 
 		updateHiddenElements: function () {
-			$('#main, #footer').toggle(!!this.todoList.length);
+			$('#main, #footer').toggle(!!this.itemList.length);
 		},
 
-		showHeader: function (todoList) {
+		showHeader: function (itemList) {
 			var header = new Bone.HeaderLayout({
-				collection: todoList
+				collection: itemList
 			});
 			Bone.App.root.showChildView('header', header);
 		},
 
-		showFooter: function (todoList) {
+		showFooter: function (itemList) {
 			var footer = new Bone.FooterLayout({
-				collection: todoList
+				collection: itemList
 			});
 			Bone.App.root.showChildView('footer', footer);
 		},
 
-		showTodoList: function (todoList) {
+		showitemList: function (itemList) {
 			Bone.App.root.showChildView('main', new Bone.ListView({
-				collection: todoList
+				collection: itemList
 			}));
 		},
 
