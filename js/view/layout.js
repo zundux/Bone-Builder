@@ -5,7 +5,7 @@ var Bone = Bone || {};
 (function () {
 	'use strict';
 
-	var filterChannel = Backbone.Radio.channel('filter');
+	// var filterChannel = Backbone.Radio.channel('filter');
 
 	Bone.RootLayout = Backbone.Marionette.LayoutView.extend({
 

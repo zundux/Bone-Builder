@@ -5,7 +5,7 @@ var Bone = Bone || {};
 (function () {
 	'use strict';
 
-	var filterChannel = Backbone.Radio.channel('filter');
+	// var filterChannel = Backbone.Radio.channel('filter');
 
 	Bone.itemView = Backbone.Marionette.ItemView.extend({
 
@@ -50,7 +50,8 @@ var Bone = Bone || {};
 				state = false;
 			}
 
-			this.ui.item.attr('contenteditable', state);
+			var editor = new MediumEditor(this.$el);
+			// this.ui.item.attr('contenteditable', state);
 		},
 
 		onEditClick: function (e) {

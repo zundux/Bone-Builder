@@ -5,7 +5,6 @@ var Bone = Bone || {};
 (function () {
 	'use strict';
 
-	var filterChannel = Backbone.Radio.channel('filter');
 
 	// itemList Router
 	// ---------------
@@ -14,7 +13,7 @@ var Bone = Bone || {};
 	// the active vs complete item items
 	Bone.Router = Backbone.Marionette.AppRouter.extend({
 		appRoutes: {
-			'*filter': 'filterItems'
+			// '*filter': 'filterItems'
 		}
 	});
 
@@ -64,9 +63,9 @@ var Bone = Bone || {};
 		},
 
 		// Set the filter to show complete or all items
-		filterItems: function (filter) {
-			var newFilter = filter && filter.trim() || 'all';
-			filterChannel.request('filterState').set('filter', newFilter);
-		}
+		// filterItems: function (filter) {
+		// 	var newFilter = filter && filter.trim() || 'all';
+		// 	filterChannel.request('filterState').set('filter', newFilter);
+		// }
 	});
 })();

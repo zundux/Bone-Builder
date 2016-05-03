@@ -3,7 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Page Builder</title>
-		<link rel="stylesheet" href="css/app.css">
+
+		<link rel="stylesheet" href="/node_modules/normalize.css/normalize.css">
+		<link rel="stylesheet" href="/bower_components/pure/pure.css">
+		<link rel="stylesheet" href="/css/app.css">
+
+		<!-- wyswyg medium-editor -->
+		<link rel="stylesheet" href="/bower_components/medium-editor/dist/css/medium-editor.min.css"> <!-- Core -->
+		<link rel="stylesheet" href="/bower_components/medium-editor/dist/css/themes/default.css"> <!-- or any other theme -->
+
 	</head>
 	<body>
 
@@ -26,7 +34,9 @@
 		</script>
 
 		<script type="text/html" id="template-header">
-			<button id="new-text">Add Text</button>
+			<button id="new-section" class="pure-button">Add Section</button>
+			<button id="new-text"    class="pure-button">Add Text</button>
+			<button id="new-image"   class="pure-button">Add Image</button>
 		</script>
 
 		<script type="text/html" id="template-itemItemView">
@@ -42,19 +52,23 @@
 
 
 		<!-- vendor libraries -->
-		<script src="node_modules/jquery/dist/jquery.js"></script>
-		<script src="node_modules/underscore/underscore.js"></script>
-		<script src="node_modules/backbone/backbone.js"></script>
-		<script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
-		<script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
-		<script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
+		<script src="/node_modules/jquery/dist/jquery.js"></script>
+		<script src="/node_modules/underscore/underscore.js"></script>
+		<script src="/node_modules/backbone/backbone.js"></script>
+		<script src="/node_modules/backbone.localstorage/backbone.localStorage.js"></script>
+		<script src="/node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
+		<!-- <script src="node_modules/backbone.radio/build/backbone.radio.js"></script> -->
+		<script src="/bower_components/medium-editor/dist/js/medium-editor.min.js"></script>
+
 		<!-- application -->
-		<script src="js/application.js"></script>
-		<script src="js/model/items.js"></script>
-		<script src="js/view/layout.js"></script>
-		<script src="js/view/itemList.js"></script>
-		<script src="js/router.js"></script>
-		<script src="js/filterState.js"></script>
-		<script src="js/index.js"></script>
+		<script src="/js/application.js"></script>
+		<script src="/js/model/items.js"></script>
+		<script src="/js/view/layout.js"></script>
+		<script src="/js/view/itemList.js"></script>
+		<script src="/js/router.js"></script>
+		<!-- <script src="js/filterState.js"></script> -->
+		<script src="/js/index.js"></script>
+
+
 	</body>
 </html>

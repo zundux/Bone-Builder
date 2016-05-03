@@ -1,0 +1,23 @@
+{
+  "name": "bone-builder",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "Zundux <zundux@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/zundux/Bone-Builder",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pure": "^0.6.0",
+    "medium-editor": "^5.16.1"
+  }
+}
