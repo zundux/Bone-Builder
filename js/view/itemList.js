@@ -27,16 +27,13 @@ var Bone = Bone || {};
             change: 'render'
         },
 
-				initialize: function() {
-					this.$el.attr('draggable', 'false');
+        deleteModel: function() {
+            this.model.destroy();
+        },
 
-					this.el.style.left = this.model.get('x');
-					this.el.style.top = this.model.get('y');
-				},
-
-				deleteModel: function () {
-					this.model.destroy();
-				},
+        onRender: function() {
+            this.$el.draggable();
+        },
 
         className: function() {
             var className = 'view',
@@ -57,25 +54,38 @@ var Bone = Bone || {};
 
         onDrag: function(e) {
             if (this.selected === true) {
-                var x_pos = document.all ? window.event.clientX : e.pageX;
-                var y_pos = document.all ? window.event.clientY : e.pageY;
+                var x = document.all ? window.event.clientX : e.pageX;
+                var y = document.all ? window.event.clientY : e.pageY;
 
-								console.log(x_pos, y_pos);
+                var x = this.el.offsetLeft,
+                    y = this.el.offsetTop;
 
-                this.el.style.left = (this.model.get('x') + (x_pos - this.model.get('x'))) + 'px';
-                this.el.style.top = (this.model.get('y') + (y_pos - this.model.get('y'))) + 'px';
+                this.model.set('x', x);
+                this.model.set('y', y);
 
-                console.log(this.el.style.left, this.el.style.top);
+                this.model.save();
+                //
+                //     this.el.style.left = (this.model.get('x') + (x - this.model.get('x'))) + 'px';
+                //     this.el.style.top = (this.model.get('y') + (y - this.model.get('y'))) + 'px';
+                //
+                //     console.log(this.el.style.left, this.el.style.top);
             }
         },
 
         onDragEnd: function(e) {
             this.selected = false;
 
-            this.model.x = this.el.offsetLeft;
-            this.model.y = this.el.offsetTop;
+            var x = this.el.offsetLeft,
+                y = this.el.offsetTop;
+
+            // console.log(x, y);
+
+            this.model.set('x', x);
+            this.model.set('y', y);
 
             this.model.save();
+
+            // console.log(this.el.offsetLeft, this.el.offsetTop);
         },
 
         toggleContentEditable: function(state) {
@@ -83,8 +93,8 @@ var Bone = Bone || {};
                 state = false;
             }
 
-            var editor = new MediumEditor(this.$el);
-            this.ui.item.attr('contenteditable', state);
+            var editor = new MediumEditor(this.ui.item);
+            // this.ui.item.attr('contenteditable', state);
         },
 
         onEditClick: function(e) {
@@ -105,7 +115,6 @@ var Bone = Bone || {};
         },
 
         onEditKeypress: function(e) {
-            // var ENTER_KEY = 13;
             var ESC_KEY = 27;
 
             if (e.which === ESC_KEY) {
@@ -116,59 +125,9 @@ var Bone = Bone || {};
     });
 
     Bone.ListView = Backbone.Marionette.CompositeView.extend({
-
         template: '#template-itemListCompositeView',
         className: 'e-page-container',
         childView: Bone.itemView,
         childViewContainer: '#item-list',
-
-        // ui: {
-        // 	toggle: '#toggle-all'
-        // },
-
-        events: {
-            'drop': 'onDrop',
-            // 	'click @ui.toggle': 'onToggleAllClick'
-        },
-
-        onDrop: function(e) {
-            e.preventDefault();
-            // let elementId = e.dataTransfer.getData('text'),
-            // 		element = document.getElementById(elementId);
-            // e.target.appendChild(element);
-            // $(element).attr('style', 'border:none;');
-        },
-
-        // collectionEvents: {
-        // 	'change:completed': 'render',
-        // 	all: 'setCheckAllState'
-        // },
-
-        initialize: function() {
-            // this.listenTo(filterChannel.request('filterState'), 'change:filter', this.render, this);
-        },
-
-        // filter: function (child) {
-        // 	var filteredOn = filterChannel.request('filterState').get('filter');
-        // 	return child.matchesFilter(filteredOn);
-        // },
-
-        // setCheckAllState: function () {
-        // 	function reduceCompleted(left, right) {
-        // 		return left && right.get('completed');
-        // 	}
-        //
-        // 	var allCompleted = this.collection.reduce(reduceCompleted, true);
-        // 	this.ui.toggle.prop('checked', allCompleted);
-        // 	this.$el.parent().toggle(!!this.collection.length);
-        // },
-
-        // onToggleAllClick: function (e) {
-        // 	var isChecked = e.currentTarget.checked;
-        //
-        // 	this.collection.each(function (item) {
-        // 		item.save({ completed: isChecked });
-        // 	});
-        // }
     });
 })();
