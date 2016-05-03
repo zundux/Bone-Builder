@@ -25,16 +25,22 @@ var Bone = Bone || {};
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			text: '#new-text'
+			text: '#new-text',
+			image: '#new-image',
 		},
 
 		events: {
 			'click @ui.text': 'onAddText',
+			'click @ui.image': 'onAddImage',
 		},
 
 		onAddText: function (e) {
 			this.collection.create();
-			// this.render();
+		},
+		onAddImage: function (e) {
+			this.collection.create({
+				type: 'image'
+			});
 		},
 
 	});

@@ -10,10 +10,47 @@ html, body {
   cursor: move;
 }
 
-*[draggable=true]:hover:after {
+/**[draggable=true]:hover:after {
   content: ' (drag me)';
-}
+}*/
 
 *:-khtml-drag {
   background-color: rgba(238,238,238, 0.5);
+}
+
+
+#itemapp {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.view {
+    border: 1px solid transparent;
+    position: relative;
+    display: inline-block;
+}
+
+.destroy {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 5px;
+}
+
+.view:hover {
+  border: 1px dashed green;
+}
+
+.view:hover .destroy {
+  display: inline-block;
+}
+
+.e-text {
+  padding: .5em;
+}
+
+.e-image img {
+  display: flex;
 }

@@ -34,15 +34,19 @@
 		</script>
 
 		<script type="text/html" id="template-header">
-			<button id="new-section" class="pure-button">Add Section</button>
+			<!-- <button id="new-section" class="pure-button">Add Section</button> -->
 			<button id="new-text"    class="pure-button">Add Text</button>
 			<button id="new-image"   class="pure-button">Add Image</button>
 		</script>
 
 		<script type="text/html" id="template-itemItemView">
-			<div class="view" draggable="true">
-				<div class="e-text"><%- text %></div>
-				<button class="destroy">x</button>
+			<div class="view <% if ( type === 'image' ) { %> e-image <% } else { %>e-text<% } %>" draggable="true">
+				<% if ( type === 'image' ) { %>
+					<img src="<%- url %>">
+				<% } else { %>
+					<div><%- text %></div>
+				<% } %>
+				<div class="destroy">x</div>
 			</div>
 		</script>
 
