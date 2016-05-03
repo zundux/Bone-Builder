@@ -25,9 +25,13 @@ html, body {
     position: relative;
 }
 
+.e-page-container {
+  position: relative;
+}
+
 .view {
     border: 1px solid transparent;
-    position: relative;
+    position: absolute;
     display: inline-block;
 }
 

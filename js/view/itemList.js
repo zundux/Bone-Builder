@@ -5,29 +5,19 @@ var Bone = Bone || {};
 (function() {
     'use strict';
 
-    // var filterChannel = Backbone.Radio.channel('filter');
-
     Bone.itemView = Backbone.Marionette.ItemView.extend({
-        selected: false,
-        x: 0,
-        y: 0,
-
         tagName: 'div',
-
         template: '#template-itemItemView',
-
         ui: {
             destroy: '.destroy',
-            item: '.e-text',
+            item: '.e-content',
             toggle: '.toggle'
         },
-
         events: {
             'click @ui.destroy': 'deleteModel',
             'dblclick @ui.item': 'onEditClick',
             'keydown @ui.item': 'onEditKeypress',
             'focusout @ui.item': 'onEditFocusout',
-            // 'click @ui.toggle': 'toggle'
             'mousedown': 'onDragStart',
             'mouseup': 'onDragEnd',
             'mousemove': 'onDrag',
@@ -35,6 +25,30 @@ var Bone = Bone || {};
 
         modelEvents: {
             change: 'render'
+        },
+
+				initialize: function() {
+					this.$el.attr('draggable', 'false');
+
+					this.el.style.left = this.model.get('x');
+					this.el.style.top = this.model.get('y');
+				},
+
+				deleteModel: function () {
+					this.model.destroy();
+				},
+
+        className: function() {
+            var className = 'view',
+                type = this.model.get('type');
+
+            if (type === 'text') {
+                className += ' e-text';
+            } else if (type === 'image') {
+                className += ' e-image';
+            }
+
+            return className;
         },
 
         onDragStart: function(e) {
@@ -46,8 +60,12 @@ var Bone = Bone || {};
                 var x_pos = document.all ? window.event.clientX : e.pageX;
                 var y_pos = document.all ? window.event.clientY : e.pageY;
 
-                this.el.style.left = (x_pos - this.x) + 'px';
-                this.el.style.top = (y_pos - this.y) + 'px';
+								console.log(x_pos, y_pos);
+
+                this.el.style.left = (this.model.get('x') + (x_pos - this.model.get('x'))) + 'px';
+                this.el.style.top = (this.model.get('y') + (y_pos - this.model.get('y'))) + 'px';
+
+                console.log(this.el.style.left, this.el.style.top);
             }
         },
 
@@ -60,17 +78,13 @@ var Bone = Bone || {};
             this.model.save();
         },
 
-        // toggle: function () {
-        // 	this.model.toggle().save();
-        // },
-
         toggleContentEditable: function(state) {
             if (state !== true && state !== false) {
                 state = false;
             }
 
             var editor = new MediumEditor(this.$el);
-            // this.ui.item.attr('contenteditable', state);
+            this.ui.item.attr('contenteditable', state);
         },
 
         onEditClick: function(e) {
@@ -79,7 +93,6 @@ var Bone = Bone || {};
             this.$el.addClass('editing');
             this.toggleContentEditable(true);
             this.ui.item.focus();
-            // this.ui.item.val(this.ui.item.val());
         },
 
         onEditFocusout: function() {
@@ -95,13 +108,7 @@ var Bone = Bone || {};
             // var ENTER_KEY = 13;
             var ESC_KEY = 27;
 
-            // if (e.which === ENTER_KEY) {
-            // 	this.onEditFocusout();
-            // 	return;
-            // }
-
             if (e.which === ESC_KEY) {
-                // this.ui.item.text(this.model.get('text'));
                 this.$el.removeClass('editing');
                 this.onEditFocusout();
             }
@@ -111,9 +118,8 @@ var Bone = Bone || {};
     Bone.ListView = Backbone.Marionette.CompositeView.extend({
 
         template: '#template-itemListCompositeView',
-
+        className: 'e-page-container',
         childView: Bone.itemView,
-
         childViewContainer: '#item-list',
 
         // ui: {
