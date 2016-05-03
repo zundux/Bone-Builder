@@ -25,10 +25,16 @@ var Bone = Bone || {};
 			'keydown @ui.item': 'onEditKeypress',
 			'focusout @ui.item': 'onEditFocusout',
 			// 'click @ui.toggle': 'toggle'
+			'dragstart' : 'onDragStart'
 		},
 
 		modelEvents: {
 			change: 'render'
+		},
+
+		onDragStart: function(e) {
+			this.$el.attr('style', 'border:1px solid blue;');
+			e.dataTransfer.setData('text', ev.target.id)
 		},
 
 		deleteModel: function () {
@@ -94,9 +100,18 @@ var Bone = Bone || {};
 		// 	toggle: '#toggle-all'
 		// },
 
-		// events: {
+		events: {
+			'drop':'onDrop',
 		// 	'click @ui.toggle': 'onToggleAllClick'
-		// },
+		},
+
+		onDrop: function(e) {
+			e.preventDefault();
+			let elementId = e.dataTransfer.getData('text'),
+					element = document.getElementById(elementId);
+			e.target.appendChild(element);
+			$(element).attr('style', 'border:none;');
+		},
 
 		// collectionEvents: {
 		// 	'change:completed': 'render',

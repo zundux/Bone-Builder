@@ -1,0 +1,19 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+
+*[draggable=true] {
+  -moz-user-select:none;
+  -khtml-user-drag: element;
+  cursor: move;
+}
+
+*[draggable=true]:hover:after {
+  content: ' (drag me)';
+}
+
+*:-khtml-drag {
+  background-color: rgba(238,238,238, 0.5);
+}
